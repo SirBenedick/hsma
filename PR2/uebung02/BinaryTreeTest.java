@@ -1,4 +1,4 @@
-package uebung2;
+package uebung02;
 
 import static org.junit.Assert.assertEquals;
 import java.lang.invoke.MethodHandles;

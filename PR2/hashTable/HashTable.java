@@ -27,7 +27,7 @@ public class HashTable {
 
 	public Object put(Object key, Object song) {
 		int index = probeToNullOrEqualKey(key);
-		if (hashTable[index] == null) {
+		if (hashTable[index] == null || hashTable[index].delete) {
 			hashTable[index] = new HashElement(key, song);
 			handleExpansion();
 			return null;
@@ -74,7 +74,7 @@ public class HashTable {
 
 	public Object get(Object key) {
 		int index = probeToNullOrEqualKey(key);
-		if (hashTable[index] == null)
+		if (hashTable[index] == null || hashTable[index].delete)
 			return null;
 		return hashTable[index].getValue();
 	}
@@ -98,14 +98,27 @@ public class HashTable {
 	}
 
 	public boolean contains(Object value) { // no probing currently
-		String[] song = value.toString().split(",");
-		StringElement key = new StringElement(song[0]);
-		return containsKey(key);
+		for (int i = 0; i < hashTable.length; i++) {
+			if (hashTable[i] != null) {
+				if (hashTable[i].getValue().equals(value) && !hashTable[i].delete)
+					return true;
+			}
+		}
+		return false;
+		// String[] song = value.toString().split(",");
+		// StringElement key = new StringElement(song[0]);
+		// int index = probeToNullOrEqualKey(key);
+		// if(hashTable[index] == null)
+		// return false;
+		// if (hashTable[index].getValue().toString().equals(value.toString())
+		// && !hashTable[index].delete)
+		// return true;
+		// return false;
 	}
 
 	public boolean containsKey(Object key) {
 		int index = probeToNullOrEqualKey(key);
-		if (hashTable[index] == null)
+		if (hashTable[index] == null || hashTable[index].delete)
 			return false;
 		return true;
 	}
@@ -113,7 +126,7 @@ public class HashTable {
 	public int size() {
 		int size = 0;
 		for (int i = 0; i < hashTable.length; i++) {
-			if (hashTable[i] != null)
+			if (hashTable[i] != null && !hashTable[i].delete)
 				size++;
 		}
 		return size;
@@ -196,13 +209,13 @@ public class HashTable {
 			}
 		}
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		hashTable = new HashElement[100];
 	}
-	
-	public boolean isEmpty(){
-		if(size() == 0)
+
+	public boolean isEmpty() {
+		if (size() == 0)
 			return true;
 		return false;
 	}

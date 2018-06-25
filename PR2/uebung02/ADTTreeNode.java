@@ -1,4 +1,4 @@
-package uebung2;
+package uebung02;
 
 public class ADTTreeNode {
 	

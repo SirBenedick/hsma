@@ -1,4 +1,4 @@
-package uebung2;
+package uebung02;
 
 public interface ADTBinaryTree {  // only int values stored in tree
 
