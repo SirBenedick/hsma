@@ -3,8 +3,12 @@ package tpe120SoSe2009_2;
 public class A {
 	protected int i;
 
-	public A(int i) {
+	protected void setI(int i) {
 		this.i = i;
+	}
+
+	public A(int i) {
+		this.setI(i);
 	}
 
 	public void m1() {
